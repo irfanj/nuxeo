@@ -15,11 +15,11 @@
     </resource>
 
     <resource name="nuxeo-select2.js" type="jsfjs">
-      <uri>org.nuxeo.select2:nuxeo-select2.min.js</uri>
+      <uri>org.nuxeo.select2:nuxeo-select2.js</uri>
       <require>select2.js</require>
     </resource>
     <resource name="nuxeo-select2-init.js" type="jsfjs">
-      <uri>org.nuxeo.select2:nuxeo-select2-init.min.js</uri>
+      <uri>org.nuxeo.select2:nuxeo-select2-init.js</uri>
       <require>nuxeo-select2.js</require>
     </resource>
 
