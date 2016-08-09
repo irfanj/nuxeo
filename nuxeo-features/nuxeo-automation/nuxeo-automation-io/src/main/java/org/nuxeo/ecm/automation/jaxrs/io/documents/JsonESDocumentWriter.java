@@ -94,10 +94,10 @@ public class JsonESDocumentWriter extends JsonDocumentWriter {
             String[] split = pathAsString.split("/");
             if (split.length > 0) {
                 for (int i = 1; i < split.length; i++) {
-                    jg.writeStringField("ecm:path.level" + i, split[i]);
+                    jg.writeStringField("ecm:path@level" + i, split[i]);
                 }
             }
-            jg.writeNumberField("ecm:path.depth", split.length);
+            jg.writeNumberField("ecm:path@depth", split.length);
         }
 
         jg.writeStringField("ecm:primaryType", doc.getType());
