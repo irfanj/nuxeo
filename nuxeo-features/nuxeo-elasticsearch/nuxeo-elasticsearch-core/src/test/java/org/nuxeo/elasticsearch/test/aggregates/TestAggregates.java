@@ -554,6 +554,7 @@ public class TestAggregates {
                 request.toString());
     }
 
+    // TODO kevin : ask ben what we do with bucket without docs (between two with data, and with extended min/max)
     @Test
     public void testPageProvider() throws Exception {
         buildDocs();
@@ -672,6 +673,7 @@ public class TestAggregates {
         Assert.assertEquals(3, buckets.get(2).getDocCount());
     }
 
+    // TODO kevin : ask ben what we do with bucket without docs (between two with data, and with extended min/max)
     @Test
     public void testPageProviderWithHistogramSelection() throws Exception {
         buildDocs();
@@ -700,6 +702,7 @@ public class TestAggregates {
                 pp.getAggregates().get("source").toString());
     }
 
+    // TODO kevin : ask ben what we do with bucket without docs (between two with data, and with extended min/max)
     @Test
     public void testPageProviderWithDateHistogramSelection() throws Exception {
         buildDocs();

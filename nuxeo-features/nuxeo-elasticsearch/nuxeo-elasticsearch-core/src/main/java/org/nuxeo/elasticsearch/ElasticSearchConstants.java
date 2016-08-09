@@ -117,4 +117,7 @@ final public class ElasticSearchConstants {
     /** @since 7.4 */
     public static final String INDEXING_QUEUE_ID = "elasticSearchIndexing";
 
+    /** @since 8.4 */
+    public static final int ES_DEFAULT_MAX_RESULT_WINDOW = 10000;
+
 }

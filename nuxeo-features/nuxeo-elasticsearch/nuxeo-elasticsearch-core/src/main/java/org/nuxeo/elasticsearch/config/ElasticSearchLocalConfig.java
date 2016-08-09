@@ -43,6 +43,9 @@ public class ElasticSearchLocalConfig implements Serializable {
     @XNode("@nodeName")
     protected String nodeName = "Nuxeo";
 
+    @XNode("@pathHome")
+    private String homePath;
+
     @XNode("@pathData")
     protected String dataPath;
 
@@ -66,6 +69,17 @@ public class ElasticSearchLocalConfig implements Serializable {
         return clusterName;
     }
 
+    /**
+     * @since 8.4
+     */
+    public String getHomePath() {
+        if (homePath == null) {
+            // TODO kevin: Change that
+            homePath = System.getProperty("user.dir");
+        }
+        return homePath;
+    }
+
     public String getDataPath() {
         if (dataPath == null) {
             File dir = new File(Framework.getRuntime().getHome(), "data/elasticsearch");
@@ -76,11 +90,7 @@ public class ElasticSearchLocalConfig implements Serializable {
 
     public String getIndexStorageType() {
         if (indexStoreType == null) {
-            if (Framework.isTestModeSet()) {
-                indexStoreType = "memory";
-            } else {
-                indexStoreType = "mmapfs";
-            }
+            indexStoreType = "mmapfs";
         }
         return indexStoreType;
     }
@@ -110,6 +120,13 @@ public class ElasticSearchLocalConfig implements Serializable {
 
     public void setDataPath(String dataPath) {
         this.dataPath = dataPath;
+    }
+
+    /**
+     * @since 8.4
+     */
+    public void setHomePath(String homePath) {
+        this.homePath = homePath;
     }
 
     public void setEnabled(boolean isEnabled) {

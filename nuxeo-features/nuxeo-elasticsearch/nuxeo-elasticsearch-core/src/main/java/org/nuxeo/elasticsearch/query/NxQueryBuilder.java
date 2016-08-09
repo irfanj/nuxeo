@@ -108,7 +108,8 @@ public class NxQueryBuilder {
      */
     public NxQueryBuilder limit(int limit) {
         if (limit < 0) {
-            limit = Integer.MAX_VALUE;
+            // TODO kevin: do we retrieve it from configuration ? or leave MAX_VALUE and edit all page providers ?
+            limit = ElasticSearchConstants.ES_DEFAULT_MAX_RESULT_WINDOW;
         }
         this.limit = limit;
         return this;
