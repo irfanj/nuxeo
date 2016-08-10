@@ -30,10 +30,8 @@
       <resources append="true">
         <resource>select2.css</resource>
         <resource>nuxeo-select2.scss</resource>
-        <!-- 
         <resource>nuxeo-select2.js</resource>
         <resource>nuxeo-select2-init.js</resource>
-         -->
       </resources>
     </bundle>
   </extension>
