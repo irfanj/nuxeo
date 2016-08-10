@@ -1,5 +1,5 @@
 /*
- * (C) Copyright 2014 Nuxeo SA (http://nuxeo.com/) and others.
+ * (C) Copyright 2014-2016 Nuxeo SA (http://nuxeo.com/) and others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -298,7 +298,7 @@ public class TestAggregates {
         aggDef.setId("created");
         aggDef.setDocumentField("dc:created");
         aggDef.setSearchField(new FieldDescriptor("advanced_search", "created_agg"));
-        List<AggregateRangeDateDefinition> ranges = new ArrayList<AggregateRangeDateDefinition>();
+        List<AggregateRangeDateDefinition> ranges = new ArrayList<>();
         ranges.add(new AggregateRangeDateDescriptor("10monthAgo", null, "now-10M/M"));
         ranges.add(new AggregateRangeDateDescriptor("1monthAgo", "now-10M/M", "now-1M/M"));
         ranges.add(new AggregateRangeDateDescriptor("thisMonth", "now-1M/M", null));
@@ -460,18 +460,19 @@ public class TestAggregates {
         SearchRequestBuilder request = esa.getClient().prepareSearch(IDX_NAME).setTypes(TYPE_NAME);
         qb.updateRequest(request);
 
-        assertEqualsEvenUnderWindows("{\n" + "  \"from\" : 0,\n" //
+        assertEqualsEvenUnderWindows("{\n" //
+                + "  \"from\" : 0,\n" //
                 + "  \"size\" : 10,\n" //
                 + "  \"query\" : {\n" //
                 + "    \"match_all\" : { }\n" //
                 + "  },\n" //
                 + "  \"post_filter\" : {\n" //
-                + "    \"and\" : {\n" //
-                + "      \"filters\" : [ {\n" //
+                + "    \"bool\" : {\n" //
+                + "      \"must\" : {\n" //
                 + "        \"terms\" : {\n" //
                 + "          \"dc:source\" : [ \"foo\", \"bar\" ]\n" //
                 + "        }\n" //
-                + "      } ]\n" //
+                + "      }\n" //
                 + "    }\n" //
                 + "  },\n" //
                 + "  \"fields\" : \"_id\",\n" //
@@ -490,12 +491,12 @@ public class TestAggregates {
                 + "    },\n" //
                 + "    \"nature_filter\" : {\n" //
                 + "      \"filter\" : {\n" //
-                + "        \"and\" : {\n" //
-                + "          \"filters\" : [ {\n" //
+                + "        \"bool\" : {\n" //
+                + "          \"must\" : {\n" //
                 + "            \"terms\" : {\n" //
                 + "              \"dc:source\" : [ \"foo\", \"bar\" ]\n" //
                 + "            }\n" //
-                + "          } ]\n" //
+                + "          }\n" //
                 + "        }\n" //
                 + "      },\n" //
                 + "      \"aggregations\" : {\n" //
@@ -567,7 +568,7 @@ public class TestAggregates {
         String[] sources = { "Source1", "Source2" };
         model.setProperty("advanced_search", "source_agg", sources);
 
-        HashMap<String, Serializable> props = new HashMap<String, Serializable>();
+        HashMap<String, Serializable> props = new HashMap<>();
         props.put(ElasticSearchNativePageProvider.CORE_SESSION_PROPERTY, (Serializable) session);
 
         PageProvider<?> pp = pps.getPageProvider("aggregates_1", ppdef, model, null, null, (long) 0, props);
@@ -612,7 +613,7 @@ public class TestAggregates {
         String[] sizes = { "big", "medium" };
         model.setProperty("advanced_search", "size_agg", sizes);
 
-        HashMap<String, Serializable> props = new HashMap<String, Serializable>();
+        HashMap<String, Serializable> props = new HashMap<>();
         props.put(ElasticSearchNativePageProvider.CORE_SESSION_PROPERTY, (Serializable) session);
 
         PageProvider<?> pp = pps.getPageProvider("aggregates_1", ppdef, model, null, null, (long) 0, props);
@@ -648,7 +649,7 @@ public class TestAggregates {
         String[] created = { "long_time_ago", "some_time_ago" };
         model.setProperty("advanced_search", "created_agg", created);
 
-        HashMap<String, Serializable> props = new HashMap<String, Serializable>();
+        HashMap<String, Serializable> props = new HashMap<>();
         props.put(ElasticSearchNativePageProvider.CORE_SESSION_PROPERTY, (Serializable) session);
 
         PageProvider<?> pp = pps.getPageProvider("aggregates_1", ppdef, model, null, null, (long) 0, props);
@@ -684,7 +685,7 @@ public class TestAggregates {
         String[] sizes = { "1024", "4096" };
         model.setProperty("advanced_search", "size_histo_agg", sizes);
 
-        HashMap<String, Serializable> props = new HashMap<String, Serializable>();
+        HashMap<String, Serializable> props = new HashMap<>();
         props.put(ElasticSearchNativePageProvider.CORE_SESSION_PROPERTY, (Serializable) session);
 
         PageProvider<?> pp = pps.getPageProvider("aggregates_1", ppdef, model, null, null, (long) 0, props);
@@ -714,7 +715,7 @@ public class TestAggregates {
         String[] created = { fmt.print(new DateTime(yesterdayNoon.minusWeeks(3).getMillis())),
                 fmt.print(new DateTime(yesterdayNoon.minusWeeks(6).getMillis())) };
         model.setProperty("advanced_search", "created_histo_agg", created);
-        HashMap<String, Serializable> props = new HashMap<String, Serializable>();
+        HashMap<String, Serializable> props = new HashMap<>();
         props.put(ElasticSearchNativePageProvider.CORE_SESSION_PROPERTY, (Serializable) session);
 
         PageProvider<?> pp = pps.getPageProvider("aggregates_1", ppdef, model, null, null, (long) 0, props);
